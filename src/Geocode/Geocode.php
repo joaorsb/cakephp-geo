@@ -414,7 +414,7 @@ class Geocode {
 			return false;
 		}
 
-		if ($this->_isNotAccurateEnough($this->result['accuracy'])) {
+		if (!empty($this->result['accuracy']) && $this->_isNotAccurateEnough($this->result['accuracy'])) {
 			$minAccuracy = $this->accuracyTypes[$this->options['min_accuracy']];
 			$this->setError(__('Accuracy not good enough ({0} instead of at least {1})', [$this->result['accuracy_name'], $minAccuracy]));
 

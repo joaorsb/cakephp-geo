@@ -14,6 +14,9 @@ A CakePHP 3.x Plugin to
 
 This plugin requires PHP 5.4+
 
+**LEGACY**
+**This branch is not continued anymore, use the new master branch instead.**
+
 ## Installation & Docs
 
 - [Documentation](docs/README.md)
