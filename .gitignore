@@ -3,3 +3,5 @@
 /tmp/
 /composer.lock
 /tests/config/app_local.php
+/nbproject/private/
+/nbproject/

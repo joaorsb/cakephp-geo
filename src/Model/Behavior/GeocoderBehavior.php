@@ -317,6 +317,7 @@ class GeocoderBehavior extends Behavior {
 		}
 
 		$value = $this->_calculationValue($this->_config['unit']);
+                
 
 		$op = function ($type, $params) {
 			return new QueryExpression($params, [], $type);
@@ -328,19 +329,19 @@ class GeocoderBehavior extends Behavior {
 		$fieldLat = new IdentifierExpression("$tableName.$fieldLat");
 		$fieldLng = new IdentifierExpression("$tableName.$fieldLng");
 
-		$fieldLatRadians = $func('RADIANS', $op('-', ['90', $fieldLat]));
+		$fieldLatRadians = $func('RADIANS', $fieldLat);
 		$fieldLngRadians = $func('RADIANS', $fieldLng);
 		$radius = $op('/', [$func('PI'), '2']);
 
 		$mult = $op('*', [
-			$func('COS', $op('-', [$radius, $fieldLatRadians])),
-			'COS(PI()/2 - RADIANS(90 - ' . $lat . '))',
+			$func('COS', $fieldLatRadians),
+			'COS(RADIANS(' . $lat . '))',
 			$func('COS', $op('-', [$fieldLngRadians, $func('RADIANS', $lng)])),
 		]);
 
 		$mult2 = $op('*', [
-			$func('SIN', $op('-', [$radius, $fieldLatRadians])),
-			$func('SIN', $op('-', [$radius, 'RADIANS(90 - ' . $lat . ')'])),
+			$func('SIN', $fieldLatRadians),
+			$func('SIN', $func('RADIANS',  $lat )),
 		]);
 
 		return $op('*', [
